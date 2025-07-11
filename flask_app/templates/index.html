@@ -1,0 +1,30 @@
+<!-- flask_app/templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>IP Reputation Checker</title>
+</head>
+<body>
+  <h2>IP Reputation Scanner (AbuseIPDB)</h2>
+  <form method="POST">
+    <input type="text" name="ip" placeholder="Enter IP Address" required>
+    <button type="submit">Check</button>
+  </form>
+
+  {% if result %}
+    <h3>Results:</h3>
+    {% if 'data' in result %}
+      <ul>
+        <li><strong>IP:</strong> {{ result['data']['ipAddress'] }}</li>
+        <li><strong>Country:</strong> {{ result['data']['countryCode'] }}</li>
+        <li><strong>Score:</strong> {{ result['data']['abuseConfidenceScore'] }}</li>
+        <li><strong>Reports:</strong> {{ result['data']['totalReports'] }}</li>
+        <li><strong>Last Reported:</strong> {{ result['data']['lastReportedAt'] }}</li>
+      </ul>
+    {% else %}
+      <p>Error: {{ result }}</p>
+    {% endif %}
+  {% endif %}
+</body>
+</html>
